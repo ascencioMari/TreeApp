@@ -1,0 +1,12 @@
+.tree > ol{
+  background-color: #efefef;
+  height: 100%;
+  padding: 10px;
+  font-family: monospace;
+  list-style-type: none;
+}
+
+.tree li {               
+  list-style-type: none;
+  margin-bottom: 1rem;
+}
