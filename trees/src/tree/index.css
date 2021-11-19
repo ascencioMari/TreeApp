@@ -20,3 +20,24 @@
 p {
 	display: inline-block;
 }
+
+.input-padding {
+  padding-bottom: 1rem;
+}
+
+button {
+	margin-left: .5rem;
+	background-color: transparent;
+	border: 0 none;
+	padding: .5rem;
+	font-size: .75rem;
+	border-radius: 50%;
+  transition: all .3s ease;
+  line-height: 1rem;
+}
+
+button:active,
+button:hover,
+button:focus {
+  background-color: rgba(0,0,0,.1);
+}
