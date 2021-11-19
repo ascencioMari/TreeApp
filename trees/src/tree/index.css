@@ -1,14 +1,10 @@
-.tree {
+.tree > ol {
   background-color: #efefef;
   height: 100%;
   padding: 10px;
   font-family: monospace;
   list-style-type: none;
-}
-
-.tree > ol {
-  counter-reset: section;
-  padding: 0;
+  counter-reset: section; 
 }
 
 .tree ol {
