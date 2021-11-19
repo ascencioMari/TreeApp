@@ -1,5 +1,4 @@
 import { useContext, createContext, useState } from "react";
-import dataTree from "./tree/data.json";
 
 export const TreeContext = createContext(); 
 
@@ -12,7 +11,7 @@ export const TreeProvider = ({ children }) => {
 
 export const useTreeData = () => {
     
-  const [tree, setTree] = useState(dataTree);
+  const [tree, setTree] = useState({});
 
   const getNodeByDeep = (tree, depth) => {
     
@@ -26,14 +25,38 @@ export const useTreeData = () => {
     return node;
   }
 
-  const setNewNode = (newNode,depth) => {
-   
+  const updateAPI = async (tree) => {
+      
+    let statusCode;
+
+    await fetch("https://api.jsonbin.io/v3/b/6195429962ed886f915029fa",{
+      headers:{
+        "Content-Type": "application/json",
+        "X-Master-key":"$2b$10$99DByc7o1/gsQcWWUwNOre584yBgU7shpNL/fdzGzLrb4Hsc.WdM6"
+      },
+      method: 'PUT',
+      body: JSON.stringify(tree)
+    })
+    .then(response => {
+      statusCode = response.status === 200 ? true : false;
+      return response.json();
+    }).then(data => {
+      if(statusCode) setTree(data.record);
+    });
+
+    return statusCode;
+  }
+
+  const setNewNode = async (newNode,depth) => {
+    
     const newTree = {...tree};
     const node = getNodeByDeep(newTree,depth);
     
-    if(node.children) node.children.push(newNode); 
-    
-    setTree(newTree);
+    if(node.children) node.children.push(newNode);
+
+    const statusCode = updateAPI(newTree);
+
+    return statusCode;
   };
 
   const deleteNode = (nodeName, depth) => {
@@ -45,10 +68,16 @@ export const useTreeData = () => {
     const index = siblindList.findIndex(element => element.node === nodeName );
     siblindList.splice(index, 1);
     
-    setTree(newTree);
+    const statusCode = updateAPI(newTree);
+
+    return statusCode;
   };
 
-  return { tree, setNewNode, deleteNode };
+  const initialLoad = remoteTree => {
+      setTree(remoteTree);
+  }
+
+  return { tree, setNewNode, deleteNode, initialLoad };
 }
 
 export const useTreeContext = () => {
