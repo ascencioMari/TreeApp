@@ -9,13 +9,19 @@ export const DrawTree = ({node, depth}) => {
   const handleSubmit = (e) => {
     e.preventDefault(); 
     const newNode = {"node": e.target[0].value};
-    tree.setNewNode(newNode,depth);
-    e.target[0].value = "";
+    tree.setNewNode(newNode,depth).then(status => {
+      e.target[0].value = "";
+      e.target[0].disabled = false;
+    });
+    e.target[0].value = "Loading...";
+    e.target[0].disabled = true;
   };
 
   const handleClick = (e) => {
     const nodeName = e.target.name;
     tree.deleteNode(nodeName,depth);
+    e.target.innerHTML = "Loading...";
+    e.target.disabled = true;
   };
 
     return (
@@ -39,4 +45,3 @@ export const DrawTree = ({node, depth}) => {
       </li>
     );
   };
-  

@@ -1,16 +1,11 @@
 import "./index.css";
-import {TreeProvider, useTreeData} from "../useTree";
-import { DrawTree } from "./DrawTree";
+import { TreeProvider } from "../useTree";
+import { RemoteData } from "./RemoteData";
 
 export default function Tree() {
-
-  const {tree} = useTreeData();
-
   return (
     <TreeProvider>
-      <div className="tree">
-        <ol><DrawTree node={ tree }/></ol>
-      </div>
+      <RemoteData />
     </TreeProvider>
   );
 }
