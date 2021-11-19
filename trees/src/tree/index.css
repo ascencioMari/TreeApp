@@ -1,4 +1,4 @@
-.tree > ol{
+.tree {
   background-color: #efefef;
   height: 100%;
   padding: 10px;
@@ -6,7 +6,21 @@
   list-style-type: none;
 }
 
-.tree li {               
+.tree > ol {
+  counter-reset: section;
+  padding: 0;
+}
+
+.tree ol {
+  counter-reset: section;                
   list-style-type: none;
-  margin-bottom: 1rem;
+}
+
+.tree li::before {
+  counter-increment: section;
+  content: counters(section, ".") " ";
+}
+
+p {
+	display: inline-block;
 }
