@@ -1,11 +1,16 @@
 import "./index.css";
-import dataTree from "./data.json";
+import {TreeProvider, useTreeData} from "../useTree";
 import { DrawTree } from "./DrawTree";
 
 export default function Tree() {
+
+  const {tree} = useTreeData();
+
   return (
-    <div className="tree">
-      <ol><DrawTree node={dataTree}/></ol>
-    </div>
+    <TreeProvider>
+      <div className="tree">
+        <ol><DrawTree node={ tree }/></ol>
+      </div>
+    </TreeProvider>
   );
 }
