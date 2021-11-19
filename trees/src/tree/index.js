@@ -5,7 +5,7 @@ import { DrawTree } from "./DrawTree";
 export default function Tree() {
   return (
     <div className="tree">
-      <DrawTree node={dataTree}/>
+      <ol><DrawTree node={dataTree}/></ol>
     </div>
   );
 }
